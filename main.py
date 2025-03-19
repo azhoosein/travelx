@@ -6,9 +6,10 @@ from dotenv import load_dotenv
 import os
 import time
 
-ADDRESS = ""
-CITY = ""
-ZIP = ""
+ADDRESS = "1537 CAMBRIA ST"
+CITY = "LOS ANGELES"
+ZIP = "90017"
+STATE = "5" # 5 for CALI, 33 for NY
 
 # Set up logging
 logging.basicConfig(level=logging.INFO,
@@ -95,51 +96,51 @@ def fill_out_form(driver, sim, imei):
 
     plan_field = driver.find_element(By.ID, 'plan')
     plan_field.click()
-    time.sleep(0.5)
+    time.sleep(0.6)
 
     aaa_field = driver.find_element(By.XPATH, '//*[@id="plan"]/option[2]')
     aaa_field.click()
-    time.sleep(0.5)
+    time.sleep(0.6)
 
     imei_field = driver.find_element(By.ID, 'imei_0')
     imei_field.send_keys(imei)
-    time.sleep(0.5)
+    time.sleep(0.6)
 
     logging.info(f'Entering SIM: {sim}...')
     sim_field = driver.find_element(By.ID, 'eid_sim_0')
     sim_field.send_keys(sim)
-    time.sleep(0.5)
+    time.sleep(1)
 
     fname_field = driver.find_element(By.ID, 'first_name')
     fname_field.send_keys("TIM")
-    time.sleep(0.5)
+    time.sleep(0.6)
 
     lname_field = driver.find_element(By.ID, 'last_name')
     lname_field.send_keys("JOHN")
-    time.sleep(0.5)
+    time.sleep(0.6)
 
     emailid_field = driver.find_element(By.ID, 'email')
     emailid_field.send_keys("TIM@GMAIL.COM")
-    time.sleep(0.5)
+    time.sleep(1)
 
     address_field = driver.find_element(By.ID, 'address')
-    address_field.send_keys("1537 CAMBRIA ST")
-    time.sleep(0.5)
+    address_field.send_keys(ADDRESS)
+    time.sleep(0.6)
 
     city_field = driver.find_element(By.ID, 'city')
-    city_field.send_keys("LOS ANGELES")
-    time.sleep(0.5)
+    city_field.send_keys(CITY)
+    time.sleep(0.6)
 
     driver.execute_script("document.getElementById('state').click()")
-    time.sleep(0.5)
+    time.sleep(1)
 
-    ny_field = driver.find_element(By.XPATH, '//*[@id="choices--state-item-choice-5"]') # for NY, change number after choice- to 33, for CA, change number to 5
+    ny_field = driver.find_element(By.XPATH, f'//*[@id="choices--state-item-choice-{STATE}"]')
     ny_field.click()
-    time.sleep(0.5)
+    time.sleep(0.6)
 
     zip_field = driver.find_element(By.NAME, 'zipcode[0]')
-    zip_field.send_keys('90017')
-    time.sleep(0.5)
+    zip_field.send_keys(ZIP)
+    time.sleep(0.6)
 
     logging.info(f'Form filling complete for {sim}.')
 
